@@ -1,0 +1,32 @@
+G1:
+# Alphabet
+a b
+# Variables
+A B C
+# Start
+A
+# Rules
+A -> aB
+B -> aB
+B -> bC
+C -> aB
+C -> bC
+C -> ε
+========
+G2:
+# Alphabet
+a b
+# Variables
+A B C
+# Start
+A
+# Rules
+A -> bB
+B -> aC
+B -> bB
+C -> aC
+C -> bB
+C -> ε
+========
+# Operation
+Union

@@ -2,7 +2,7 @@ class RegularGrammar:
 
     alphabet = set()
     variables = set()
-    start = ''
+    start = ""
     rules = {}
     
     def __init__(self, alphabet, variables, start, rules):
@@ -12,5 +12,5 @@ class RegularGrammar:
         self.rules = rules
 
     def __str__(self):
-        return f"Alphabet: {self.alphabet}\nVariables: {self.variables}\nSatrt: {self.start}\nRules: {self.rules}"
+        return f"Alphabet: {self.alphabet}\nVariables: {self.variables}\nStart: {self.start}\nRules: {self.rules}"
 

@@ -1,50 +1,16 @@
-from regularGrammar import RegularGrammar
+from parser import parse
+from nfa import grammar_to_nfa
 
-def parse(file):
-
-    alphabet = set()
-    variables = set()
-    start = ''
-    rules = {}
-    operation = ""
-
-    grammars = []
-
-    while (True):
-        line = file.readline()
-
-        if line == "": 
-            break
-
-        line = line.strip()
-
-        if line == "# Alphabet":
-            line = file.readline()
-            alphabet = line.strip().split()
-
-        elif line == "# Variables":
-            line = file.readline()
-            variables = line.strip().split()
-
-        elif line == "# Start":
-            line = file.readline()
-            start = line.strip()
-        
-        elif line == "# Rules":
-            while (True):
-                line = file.readline()
-                if line.strip() == "========":
-                    break
-                left, right  = line.strip().split("->")
-                rules.setdefault(left, []).append(right)
-            grammars.append(RegularGrammar(alphabet, variables, start, rules))
-        
-        elif line == "# Operation":
-            operation = file.readline().strip()
-
-    return grammars, operation
-
-
+grammars = []
+nfas = []
+operation = ""
 
 file = open("input.txt", 'r')
-print(parse(file))
+(grammars, operation) = parse(file)
+
+for grammar in grammars:
+    nfas.append(grammar_to_nfa(grammar))
+
+for nfa in nfas:
+    print(nfa)
+

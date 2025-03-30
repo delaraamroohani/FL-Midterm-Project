@@ -1,29 +1,19 @@
-G1:
-# Alphabet
-a b
-# Variables
-A B C
-# Start
-A
-# Rules
-A -> aB
-B -> aB
-B -> bC
-C -> aB
-C -> bC
-C -> ε
-========
 G2:
 # Alphabet
-a b
+a b c
 # Variables
-A B C
+A B C D
 # Start
 A
 # Rules
 A -> bB
+A -> bC
+A -> bD
+A -> cA
 B -> aC
-B -> bB
+B -> bC
+B -> bA
+B -> cD
 C -> aC
 C -> bB
 C -> ε

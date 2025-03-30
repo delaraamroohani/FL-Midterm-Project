@@ -18,7 +18,7 @@ def nfa_to_dfa(nfa):
     dfa = DFA()
     dfa.start = "q0"
     
-    state_names = {} # {symbol: set(states)}
+    state_names = {} # {set(states): symbol}
     state_num = 1
 
     states_queue = deque()

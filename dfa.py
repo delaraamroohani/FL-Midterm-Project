@@ -89,7 +89,7 @@ def nfa_to_dfa(nfa):
 def union(dfa1, dfa2):
     dfa = DFA()
     if dfa1.alphabet != dfa2.alphabet:
-        print("ALphabets aren't equal")
+        print("Alphabets aren't equal")
         return None
     dfa.alphabet = dfa1.alphabet.copy()  # both dfas have the same alphabet
     

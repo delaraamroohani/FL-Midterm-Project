@@ -7,16 +7,28 @@ class DFA:
         self.transitions = {}  # {(state, symbol): next_state} 
         self.start = ""                           # notice there is only one next state
         self.accept_states = set()
+        self.alphabet = set()
 
     def __str__(self):
-        return f"States: {self.states}\nTransitions: {self.transitions}\nStart: {self.start}\nAccept states: {self.accept_states}"
+        return f"States: {self.states}\nTransitions: {self.transitions}\nStart: {self.start}\nAccept states: {self.accept_states}\nAlphabet: {self.alphabet}"
 
     def add_transition(self, state, symbol, next_state):
         self.transitions.setdefault((state, symbol), next_state) # Will not add transition if one exists already
 
+def complement(dfa):
+    dfacomp = DFA()
+    dfacomp.accept_states = dfa.states.copy().difference(dfa.accept_states)
+    dfacomp.states = dfa.states.copy()
+    dfacomp.alphabet = dfa.alphabet.copy()
+    dfacomp.states = dfa.states.copy()
+    dfacomp.transitions = dfa.transitions.copy()
+    dfacomp.start = dfa.start
+    return dfacomp
+        
 def nfa_to_dfa(nfa):
     dfa = DFA()
     dfa.start = "q0"
+    dfa.alphabet = nfa.alphabet
     
     state_names = {} # {symbol: set(states)}
     state_num = 1
@@ -57,13 +69,15 @@ def nfa_to_dfa(nfa):
 
     flag = False
     for state in dfa.states:
-        for symbol in nfa.alphabet:
+        for symbol in dfa.alphabet:
             if (state, symbol) not in dfa.transitions.keys():
                 dfa.transitions.setdefault((state, symbol), "N")
                 flag = True
 
     if flag:
         dfa.states.add("N")
+        for symbol in dfa.alphabet:
+            dfa.add_transition("N", symbol, "N")
     
     for (dfa_states, name) in state_names.items():
         for acc in nfa.accept_states:
@@ -72,8 +86,44 @@ def nfa_to_dfa(nfa):
 
     return dfa
 
-
+def union(dfa1, dfa2):
+    dfa = DFA()
+    if dfa1.alphabet != dfa2.alphabet:
+        print("ALphabets aren't equal")
+        return None
+    dfa.alphabet = dfa1.alphabet.copy()  # both dfas have the same alphabet
     
+    start_state = (dfa1.start, dfa2.start)
+    dfa.start = start_state
 
+    states_queue = deque([start_state])
+    checked = set()
+    state_mapping = {start_state: "q0"}
+    dfa.states.add("q0")
     
+    state_count = 1
+
+    while states_queue:
+        (s1, s2) = states_queue.popleft()
+        checked.add((s1, s2))
+        current_state_name = state_mapping[(s1, s2)]
+
+        for symbol in dfa.alphabet:
+            next_s1 = dfa1.transitions.get((s1, symbol))
+            next_s2 = dfa2.transitions.get((s2, symbol))
+            next_state = (next_s1, next_s2)
+
+            if next_state not in state_mapping:
+                new_state_name = f"q{state_count}"
+                state_mapping[next_state] = new_state_name
+                state_count += 1
+                dfa.states.add(new_state_name)
+                states_queue.append(next_state)
+
+            dfa.add_transition(current_state_name, symbol, state_mapping[next_state])
+
+        if s1 in dfa1.accept_states or s2 in dfa2.accept_states:
+            dfa.accept_states.add(current_state_name)
+
+    return dfa
 

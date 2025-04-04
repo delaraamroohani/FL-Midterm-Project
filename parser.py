@@ -1,3 +1,14 @@
+"""
+parser.py
+
+This module contains a function that parses a given file and returns 
+parsed information.
+
+Functions:
+    parse(file): Returns parsed grammars and specified operation from 
+        given file.
+"""
+
 from regularGrammar import RegularGrammar
 
 def parse(file):

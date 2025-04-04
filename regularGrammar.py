@@ -1,4 +1,11 @@
+"""
+regularGrammar.py
+
+A module that contains the class RegularGrammar.
+"""
+
 class RegularGrammar:
+    """Represents a regular grammar."""
 
     alphabet = set()
     variables = set()
@@ -12,5 +19,6 @@ class RegularGrammar:
         self.rules = rules
 
     def __str__(self):
+        # Made for debugging purposes.
         return f"Alphabet: {self.alphabet}\nVariables: {self.variables}\nStart: {self.start}\nRules: {self.rules}"
 

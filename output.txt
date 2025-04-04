@@ -1,0 +1,13 @@
+# States
+q0 q1
+# Alphabet
+a b
+# Start State
+q0
+# Final States
+q1
+# Transitions
+q0 a q1
+q0 b q0
+q1 b q1
+q1 a q0

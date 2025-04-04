@@ -10,21 +10,24 @@ class DFA:
         self.alphabet = set()
 
     def __str__(self):
-        return f"States: {self.states}\nTransitions: {self.transitions}\nStart: {self.start}\nAccept states: {self.accept_states}\nAlphabet: {self.alphabet}"
+        s = "# States\n"
+        s += " ".join(map(str, self.states))
+        s += "\n# Alphabet\n"
+        s += " ".join(map(str, self.alphabet))
+        s += "\n# Start State\n"
+        s += self.start
+        s += "\n# Final States\n"
+        s += " ".join(map(str, self.accept_states))
+        s += "\n# Transitions\n"
+        
+        for ((state, symbol), next_state) in self.transitions.items():
+            s += f"{state} {symbol} {next_state}\n"
+
+        return s
 
     def add_transition(self, state, symbol, next_state):
         self.transitions.setdefault((state, symbol), next_state) # Will not add transition if one exists already
-
-def complement(dfa):
-    dfacomp = DFA()
-    dfacomp.accept_states = dfa.states.copy().difference(dfa.accept_states)
-    dfacomp.states = dfa.states.copy()
-    dfacomp.alphabet = dfa.alphabet.copy()
-    dfacomp.states = dfa.states.copy()
-    dfacomp.transitions = dfa.transitions.copy()
-    dfacomp.start = dfa.start
-    return dfacomp
-        
+ 
 def nfa_to_dfa(nfa):
     dfa = DFA()
     dfa.start = "q0"
@@ -85,6 +88,16 @@ def nfa_to_dfa(nfa):
                 dfa.accept_states.add(name)
 
     return dfa
+
+def complement(dfa):
+    dfacomp = DFA()
+    dfacomp.accept_states = dfa.states.copy().difference(dfa.accept_states)
+    dfacomp.states = dfa.states.copy()
+    dfacomp.alphabet = dfa.alphabet.copy()
+    dfacomp.states = dfa.states.copy()
+    dfacomp.transitions = dfa.transitions.copy()
+    dfacomp.start = dfa.start
+    return dfacomp
 
 def union(dfa1, dfa2):
     dfa = DFA()

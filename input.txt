@@ -1,32 +1,44 @@
+3:
 G1:
 # Alphabet
 a b
 # Variables
-A B C
+S A
 # Start
-A
+S
 # Rules
-A -> aB
-B -> aB
-B -> bC
-C -> aB
-C -> bC
-C -> ε
+S -> aA
+A -> aA
+A -> bA
+A -> ε
 ========
 G2:
 # Alphabet
 a b
 # Variables
-A B C
+S A
 # Start
-A
+S
 # Rules
-A -> bB
-B -> aC
-B -> bB
-C -> aC
-C -> bB
-C -> ε
+S -> aA
+S -> bS
+S -> ε
+A -> aS
+A -> bA
+========
+G3:
+# Alphabet
+a b
+# Variables
+S A
+# Start
+S
+# Rules
+S -> aS
+S -> bA
+A -> aA
+A -> bA
+A -> ε
 ========
 # Operation
-Union
+Intersection

@@ -5,7 +5,14 @@ A module that contains the class RegularGrammar.
 """
 
 class RegularGrammar:
-    """Represents a regular grammar."""
+    """Represents a regular grammar.
+    
+    Attributes:
+        alphabet (set): Set of alphabet.
+        variables (set): Set of variables.
+        start (str): The start variable.
+        rules (dict): Mapping from variable to production.
+    """
 
     alphabet = set()
     variables = set()

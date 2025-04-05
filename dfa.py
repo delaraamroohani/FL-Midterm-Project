@@ -36,7 +36,7 @@ class DFA:
     def __init__(self):
         self.states = set()
         self.transitions = {}  # {(state, symbol): next_state} 
-        self.start = ""                           # notice there is only one next state
+        self.start = ""                           # Notice there is only one next state
         self.accept_states = set()
         self.alphabet = set()
 
